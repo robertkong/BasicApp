@@ -1,0 +1,21 @@
+[
+    {
+        "id": 1,
+        "authorAvatarUrl": "m_2.jpg",
+        "authorName": "Arthur Martin",
+        "authorEmail": "user1@test.com",
+        "username": "user1",
+        "commentsTime": "3 hours ago",
+        "commentsContent": "<h1>test comments</h1>"
+    },
+    {
+        "id": 2,
+        "authorAvatarUrl": "w_1.jpg",
+        "authorName": "Joe Doe",
+        "authorEmail": "user2@test.com",
+        "username": "user2",
+        "commentsTime": "10 hours ago",
+        "commentsContent": "<h1>user2 test comments</h1>"
+    }
+    
+]
