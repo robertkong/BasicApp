@@ -27,6 +27,8 @@ define(['ojs/ojcontext', 'jquery', 'mentionsDemo', 'ojs/ojarraydataprovider', 'o
 
       var url = "js/existingComments.json";  //defines link to local data file
       self.avatarBaseUrl = "https://ckeditor.com/docs/ckeditor4/4.16.0/examples/assets/mentions/img/";
+      self.newCommentsContent = '<p><a href="mailto:ajames@example.com">@ajames</a>&nbsp;Please <strong>review</strong> comments above!😀</p><p> </p>';
+
       self.mappedCommentsList = ko.observableArray([]);  //gets data for Activities list
 
       self.mapComments = comments =>  ({
@@ -62,8 +64,6 @@ define(['ojs/ojcontext', 'jquery', 'mentionsDemo', 'ojs/ojarraydataprovider', 'o
         { name: "Terms Of Use", id: "termsOfUse", linkTarget: "http://www.oracle.com/us/legal/terms/index.html" },
         { name: "Your Privacy Rights", id: "yourPrivacyRights", linkTarget: "http://www.oracle.com/us/legal/privacy/index.html" },
       ];
-
-      self.newCommentsContent = '<p>This is some <strong>sample text</strong>. You are using <a href="https://ckeditor.com/">CKEditor</a>.</p>';
 
       // self.updateComments = function (newValue) {
       //   self.newComments(newValue);
