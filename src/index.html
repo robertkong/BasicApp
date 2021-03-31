@@ -90,7 +90,7 @@
       <div class="chat">
         <ul class="posts">
           
-        <oj-bind-for-each data="[[commentsListDataProvider]]">
+        <oj-bind-for-each data="[[mappedCommentsList]]">
           <template>
             <li>
               <img :src="[[$current.data.authorAvatarUrl]]" alt="avatar"
@@ -131,8 +131,7 @@
         </ul>
 
         <div class="editor">
-          <textarea cols="80" id="editor1" name="editor1" rows="10"
-            :value="[[newComments]]"></textarea>
+          <textarea cols="80" id="editor1" name="editor1" rows="10"></textarea>
         </div>
         <button id="send" class="send" on-click="[[saveComments]]">Save</button>
       </div>

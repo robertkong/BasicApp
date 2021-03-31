@@ -27,27 +27,31 @@ define(['ojs/ojcontext', 'jquery', 'mentionsDemo', 'ojs/ojarraydataprovider', 'o
 
       var url = "js/existingComments.json";  //defines link to local data file
       self.avatarBaseUrl = "https://ckeditor.com/docs/ckeditor4/4.16.0/examples/assets/mentions/img/";
-      self.commentsListDataProvider = ko.observable(new ArrayDataProvider([]));  //gets data for Activities list
+      self.mappedCommentsList = ko.observableArray([]);  //gets data for Activities list
 
-      self.buildCommentsListDataProvider = data => {
+      self.mapComments = comments =>  ({
+        ...comments,
+        authorAvatarUrl: self.avatarBaseUrl + comments.authorAvatarUrl,
+        // commentsDOM: {
+        //   view: HtmlUtils.stringToNodeArray(comments.commentsContent),
+        //   data: {
+
+        //   },
+        // }
+      });
+
+      self.mapCommentsList = data => {
         let mappedData = data.map(
-          comments => ({
-            ...comments,
-            authorAvatarUrl: self.avatarBaseUrl + comments.authorAvatarUrl,
-            commentsDOM: {
-              view: HtmlUtils.stringToNodeArray(comments.commentsContent),
-              data: {
-
-              },
-            }
-          })
+          comments => self.mapComments(comments)
         );
-        self.commentsListDataProvider(new ArrayDataProvider(mappedData, { keyAttributes: 'id' }));
+        mappedData.forEach(element => {
+          self.mappedCommentsList.push(element);
+        });
       }
 
       $.getJSON(url).then(function (data) {
         self.commentsList = data;
-        self.buildCommentsListDataProvider(self.commentsList);
+        self.mapCommentsList(self.commentsList);
       });
 
       // Footer
@@ -59,29 +63,30 @@ define(['ojs/ojcontext', 'jquery', 'mentionsDemo', 'ojs/ojarraydataprovider', 'o
         { name: "Your Privacy Rights", id: "yourPrivacyRights", linkTarget: "http://www.oracle.com/us/legal/privacy/index.html" },
       ];
 
-      self.newComments = ko.observable('<p>This is some <strong>sample text</strong>. You are using <a href="https://ckeditor.com/">CKEditor</a>.</p>');
+      self.newCommentsContent = '<p>This is some <strong>sample text</strong>. You are using <a href="https://ckeditor.com/">CKEditor</a>.</p>';
 
       // self.updateComments = function (newValue) {
       //   self.newComments(newValue);
       // };
   
       self.mentionsDemo = mentionsDemo;
-      self.mentionsDemo.setComments(self.newComments);
+      self.mentionsDemo.setComments(self.newCommentsContent);
   
       self.saveComments = (event,data, context) => {
-        let obj = data;
-        let newComments = data.mentionsDemo.getComments();
-        obj.commentsList.push({
-          id: obj.commentsList.length + 1,
+        // let obj = data;
+        self.newCommentsContent = self.mentionsDemo.getComments();
+        let newComments = {
+          id: self.commentsList.length + 1,
           "authorAvatarUrl": "m_4.jpg",
           "authorName": "John Hancock",
           "authorEmail": "john.hancock@oracle.com",
           "username": "user2",
           "commentsTime": "just now",
-          "commentsContent": newComments,
-        });
-        obj.buildCommentsListDataProvider(obj.commentsList);
-        data.mentionsDemo.setComments("<p></p>");
+          "commentsContent": self.newCommentsContent,
+        };
+        self.commentsList.push(newComments);
+        self.mappedCommentsList.push(self.mapComments(newComments));
+        self.mentionsDemo.setComments("<p></p>");
       };
   
     }

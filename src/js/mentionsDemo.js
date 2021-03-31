@@ -190,10 +190,10 @@ define(['ckeditor4'], function (CKLoader) {
 
     CKEDITOR.replace('editor1', {
       plugins: 'mentions,emoji,basicstyles,undo,link,wysiwygarea,toolbar',
-      contentsCss: [
-        'http://cdn.ckeditor.com/4.16.0/full-all/contents.css',
-        'https://ckeditor.com/docs/vendors/4.16.0/ckeditor/contents.css'
-      ],
+      // contentsCss: [
+      //   'http://cdn.ckeditor.com/4.16.0/full-all/contents.css',
+      //   'https://ckeditor.com/docs/vendors/4.16.0/ckeditor/contents.css'
+      // ],
       height: 150,
       toolbar: [{
         name: 'document',

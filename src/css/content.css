@@ -10,8 +10,9 @@
     border-bottom: none;
 }
 
-.chat > .posts li:first-child {
+.chat > .posts li {
     margin-bottom: 15px;
+    border-bottom: lightgray 1px dashed;
 }
 
 .chat > .posts .message {
