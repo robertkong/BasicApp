@@ -1,213 +1,31 @@
-define(['ckeditor4'], function (CKLoader) {
+define(['ckeditor4', 'text!users.json','text!tags.json' ], function (CKLoader, usersStr, tagsStr) {
   function MentionsDemo() {
-
-    var users = [{
-      id: 1,
-      avatar: 'm_1',
-      fullname: 'Charles Flores',
-      username: 'cflores'
-    },
-    {
-      id: 2,
-      avatar: 'm_2',
-      fullname: 'Gerald Jackson',
-      username: 'gjackson'
-    },
-    {
-      id: 3,
-      avatar: 'm_3',
-      fullname: 'Wayne Reed',
-      username: 'wreed'
-    },
-    {
-      id: 4,
-      avatar: 'm_4',
-      fullname: 'Louis Garcia',
-      username: 'lgarcia'
-    },
-    {
-      id: 5,
-      avatar: 'm_5',
-      fullname: 'Roy Wilson',
-      username: 'rwilson'
-    },
-    {
-      id: 6,
-      avatar: 'm_6',
-      fullname: 'Matthew Nelson',
-      username: 'mnelson'
-    },
-    {
-      id: 7,
-      avatar: 'm_7',
-      fullname: 'Randy Williams',
-      username: 'rwilliams'
-    },
-    {
-      id: 8,
-      avatar: 'm_8',
-      fullname: 'Albert Johnson',
-      username: 'ajohnson'
-    },
-    {
-      id: 9,
-      avatar: 'm_9',
-      fullname: 'Steve Roberts',
-      username: 'sroberts'
-    },
-    {
-      id: 10,
-      avatar: 'm_10',
-      fullname: 'Kevin Evans',
-      username: 'kevans'
-    },
-
-    {
-      id: 11,
-      avatar: 'w_1',
-      fullname: 'Mildred Wilson',
-      username: 'mwilson'
-    },
-    {
-      id: 12,
-      avatar: 'w_2',
-      fullname: 'Melissa Nelson',
-      username: 'mnelson'
-    },
-    {
-      id: 13,
-      avatar: 'w_3',
-      fullname: 'Kathleen Allen',
-      username: 'kallen'
-    },
-    {
-      id: 14,
-      avatar: 'w_4',
-      fullname: 'Mary Young',
-      username: 'myoung'
-    },
-    {
-      id: 15,
-      avatar: 'w_5',
-      fullname: 'Ashley Rogers',
-      username: 'arogers'
-    },
-    {
-      id: 16,
-      avatar: 'w_6',
-      fullname: 'Debra Griffin',
-      username: 'dgriffin'
-    },
-    {
-      id: 17,
-      avatar: 'w_7',
-      fullname: 'Denise Williams',
-      username: 'dwilliams'
-    },
-    {
-      id: 18,
-      avatar: 'w_8',
-      fullname: 'Amy James',
-      username: 'ajames'
-    },
-    {
-      id: 19,
-      avatar: 'w_9',
-      fullname: 'Ruby Anderson',
-      username: 'randerson'
-    },
-    {
-      id: 20,
-      avatar: 'w_10',
-      fullname: 'Wanda Lee',
-      username: 'wlee'
-    }
-    ],
-      tags = [
-        'american',
-        'asian',
-        'baking',
-        'breakfast',
-        'cake',
-        'caribbean',
-        'chinese',
-        'chocolate',
-        'cooking',
-        'dairy',
-        'delicious',
-        'delish',
-        'dessert',
-        'desserts',
-        'dinner',
-        'eat',
-        'eating',
-        'eggs',
-        'fish',
-        'food',
-        'foodgasm',
-        'foodie',
-        'foodporn',
-        'foods',
-        'french',
-        'fresh',
-        'fusion',
-        'glutenfree',
-        'greek',
-        'grilling',
-        'halal',
-        'homemade',
-        'hot',
-        'hungry',
-        'icecream',
-        'indian',
-        'italian',
-        'japanese',
-        'keto',
-        'korean',
-        'lactosefree',
-        'lunch',
-        'meat',
-        'mediterranean',
-        'mexican',
-        'moroccan',
-        'nom',
-        'nomnom',
-        'paleo',
-        'poultry',
-        'snack',
-        'spanish',
-        'sugarfree',
-        'sweet',
-        'sweettooth',
-        'tasty',
-        'thai',
-        'vegan',
-        'vegetarian',
-        'vietnamese',
-        'yum',
-        'yummy'
-      ];
+    let users = JSON.parse(usersStr);
+    let tags = JSON.parse(tagsStr);
 
     CKEDITOR.replace('editor1', {
-      plugins: 'mentions,emoji,basicstyles,undo,link,wysiwygarea,toolbar',
+      startupFocus : 'end',
+      plugins: 'mentions,emoji,basicstyles,undo,link,wysiwygarea,toolbar,sourcedialog',
+      extraPlugins: 'sourcedialog',
+      // removePlugins: 'sourcearea',
       // contentsCss: [
       //   'http://cdn.ckeditor.com/4.16.0/full-all/contents.css',
       //   'https://ckeditor.com/docs/vendors/4.16.0/ckeditor/contents.css'
       // ],
       height: 150,
-      toolbar: [{
-        name: 'document',
-        items: ['Undo', 'Redo']
-      },
-      {
-        name: 'basicstyles',
-        items: ['Bold', 'Italic', 'Strike']
-      },
-      {
-        name: 'links',
-        items: ['EmojiPanel', 'Link', 'Unlink']
-      }
-      ],
+      // toolbar: [{
+      //   name: 'document',
+      //   items: ['Undo', 'Redo']
+      // },
+      // {
+      //   name: 'basicstyles',
+      //   items: ['Bold', 'Italic', 'Strike']
+      // },
+      // {
+      //   name: 'links',
+      //   items: ['EmojiPanel', 'Link', 'Unlink']
+      // }
+      // ],
       mentions: [{
         feed: dataFeed,
         itemTemplate: '<li data-id="{id}">' +
@@ -250,6 +68,8 @@ define(['ckeditor4'], function (CKLoader) {
     this.setComments = (data) => {
       return CKEDITOR.instances.editor1.setData(data);
     };
+
+    CKEDITOR.instances.editor1.focus();
   }
 
   return new MentionsDemo();
